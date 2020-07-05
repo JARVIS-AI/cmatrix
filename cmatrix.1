@@ -3,7 +3,7 @@
 CMatrix
 .SH SYNOPSIS
 .B cmatrix
-[\-abBflohnsVx] [\-u update] [\-C color]
+[\-abBflohnsmVx] [\-u update] [\-C color]
 .SH DESCRIPTION
 Shows a scrolling 'Matrix' like screen in Linux
 .SS OPTIONS
@@ -35,6 +35,9 @@ No bold characters (overrides \-b and \-B)
 .I "\-s"
 "Screensaver" mode, exits on first keystroke
 .TP
+.I "\-m"
+"Lambda" mode, every character becomes a lambda
+.TP
 .I "\-x"
 X window mode, use if your xterm is using mtx.pcf
 .TP
@@ -47,6 +50,8 @@ Screen update delay 0 - 9, default 4
 .I "\-C color"
 Use this color for matrix (default green). 
 Valid colors are green, red, blue, white, yellow, cyan, magenta and black.
+.I "\-t tty"
+Set tty to use
 .SS KEYSTROKES
 The following keystrokes are available during execution (unavailable in
 \-s mode)

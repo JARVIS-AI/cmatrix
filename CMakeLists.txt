@@ -3,7 +3,7 @@
 cmake_minimum_required(VERSION 2.8)
 
 project(CMatrix LANGUAGES C)
-set(VERSION "1.2")
+set(VERSION "2.0")
 
 # These are relative to CMAKE_INSTALL_PREFIX
 # which by default is "/usr/local"
@@ -12,8 +12,20 @@ set(X_FONTS_DIRS "lib/X11/fonts/misc" "X11R6/lib/X11/fonts/misc" "share/fonts/X1
 
 set(MKFONTDIR "/usr/bin/mkfontdir")
 
-add_definitions(-DEXCLUDE_CONFIG_H)
+message(STATUS "Looking for include file config.h")
+if(NOT EXISTS "${CMAKE_SOURCE_DIR}/config.h")
+    add_definitions(-DEXCLUDE_CONFIG_H)
+    message(STATUS "Looking for include file config.h - missing")
+else()
+    message(STATUS "Looking for include file config.h - found")
+endif()
+
+# configure_file(config.h.in config.h)
+
 add_definitions(-DVERSION="${VERSION}")
+if	(NOT WIN32)
+	add_definitions(-DUSE_TIOCSTI)
+endif	()
 
 include(CheckIncludeFiles)
 check_include_files("sys/ioctl.h" HAVE_SYS_IOCTL_H)
@@ -31,6 +43,10 @@ endif	()
 check_include_files("termio.h" HAVE_TERMIO_H)
 if	(HAVE_TERMIO_H)
 	add_definitions(-DHAVE_TERMIO_H)
+endif	()
+check_include_files("getopt.h" HAVE_GETOPT_H)
+if	(HAVE_GETOPT_H)
+	add_definitions(-DHAVE_GETOPT_H)
 endif	()
 
 Set(CURSES_NEED_NCURSES TRUE)
